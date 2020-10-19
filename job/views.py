@@ -291,3 +291,4 @@ class SentView(DetailView):
 class About(View):
     def get(self, request):
         return render(request, 'job/about.html')
+
