@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ block.super }} | Вакансия : {{ vacancy.title }}
+{% endblock %}
+
+
+{% block cards1 %}
+  <div class="row mt-5 d-flex justify-content-center">
+    <div class="col-12 col-lg-8">
+      <section class="pl-3 ">
+
+        {% include 'incl/_vac_text.html' %}
+
+          {% if flag_application %}
+            {% include 'incl/_vac_form.html' %}
+          {% else %}
+            <div class="text-center mt-3 mb-5">
+              <a class="btn btn-primary" href="{% url 'application' vacancy.pk %}"> Откликнуться на вакансию </a>
+            </div>
+          {% endif %}
+
+
+      </section>
+    </div>
+  </div>
+
+{% endblock %}

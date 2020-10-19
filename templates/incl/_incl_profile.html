@@ -1,0 +1,46 @@
+
+
+<ul class="navbar-nav col-2 justify-content-end">
+<!--    для авторизованных пользователей - имя и выпадающее меню,-->
+<!--    для остальных - вход и регистрация-->
+    {% if request.user.is_authenticated %}
+
+    <li class="nav-item active">
+      <div class="dropdown open">
+        <button class="btn btn-light font-weight-bold dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           {{ request.user }}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <a href="{% url 'profile' request.user.pk %}" class="dropdown-item nav-link font-weight-bold"><span>Профиль</span></a>
+
+            {%  if request.user.resume %}
+            <a href="{% url 'updresume' user.resume.pk %}" class="dropdown-item nav-link font-weight-bold"><span>Резюме</span></a>
+            {% else %}
+            <a href="{% url 'demo_resume' %}" class="dropdown-item nav-link font-weight-bold"><span>Резюме</span></a>
+            {% endif %}
+
+            {% if request.user.company %}
+            <a href="{% url 'update_comp' request.user.company.pk %}" class="dropdown-item nav-link font-weight-bold"><span>Компания</span></a>
+            {% else %}
+            <a href="{% url 'addmycompany' %}" class="dropdown-item nav-link font-weight-bold"><span>Компания</span></a>
+            {% endif %}
+
+          <a href="{% url 'logout' %}" class="dropdown-item nav-link font-weight-bold"><span>Выход</span></a>
+        </div>
+      </div>
+    </li>
+
+    {% else %}
+
+    <li class="nav-item active">
+      <a href="{% url 'login' %}" class="nav-link font-weight-bold"><span>Вход</span></a>
+    </li>
+    <li class="nav-item active">
+     <p class="nav-link font-weight-bold"><span>|</span></p>
+    </li>
+    <li class="nav-item active">
+      <a href="{% url 'signup' %}" class="nav-link font-weight-bold"><span>Регистрация</span></a>
+    </li>
+
+    {% endif %}
+</ul>

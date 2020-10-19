@@ -1,0 +1,6 @@
+  {% if com.logo %}
+  <a href="{{ com.get_absolute_url }}"><img src="{{ com.logo.url }}" width="130" height="80" alt=""></a>
+  {% else %}
+  <a href="{{ com.get_absolute_url }}"><img src="../../static/logs/logo{{ com.pk }}.png" width="130" height="80" alt=""></a>
+  {% endif %}
+  УДАЛИТЬ _img_logo

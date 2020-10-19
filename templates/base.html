@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{{ title }}{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!--  <link rel="stylesheet" href="{% static 'css/style01.css' %}">-->
+</head>
+
+<body>
+
+  <main class="container mt-3">
+
+                  <!--NAVBAR-->
+        {% include 'incl/_header.html' %}
+
+      {% block question %}
+        <h6>
+            Вроде бы все.
+            Здесь и 3-я и 4-я неделя.
+            Не получилось только загрузить картинки через форму.
+            По этому поводу задавал вопрос еще на 1-й неделе, хотелось бы все-таки понять, в чем дело. <br>
+Копия с телеги: <span class="text-primary">«Не получается загрузить картинку через форму.
+            Ни через стандартную форму   form.as_p, ни через   crispy_forms , ни вручную.
+            Все остальные данные нормально добавляются и изменяются.
+            Через админку картинки добавляются без проблем.
+            В чем может быть причина?»</span><br>
+Переделывал и вьюху, и темплейт, и форму, и модель - не помогает ничего.<br>
+Заранее спасибо.<br>
+Да, еще почему-то не работает дебаг-тул-бар…
+        </h6>
+      {% endblock %}
+
+                    <!-- 1 -->
+        {% block first_section %}{% endblock %}
+
+                 <!-- CARDS -->
+        {% block cards1 %}{% endblock %}
+
+                  <!-- CARDS -->
+        {% block cards2 %}{% endblock %}
+
+      {% block paginator %} {% endblock %}
+
+  </main>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

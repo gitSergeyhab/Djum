@@ -1,0 +1,90 @@
+<div class="card">
+          <div class="card-body px-4 pb-4">
+            <!-- Tab -->
+            <section class="tab-pane fade show active">
+              <h2 class="h4 pt-2 pb-3">Информация о&nbsp;компании</h2>
+
+
+            <form action="" enctype='multipart/form-data' method="post">
+
+                {% csrf_token %}
+
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+
+                        <label class="mb-2 text-dark" for="{{ form.name.id_for_label }}">Название компании</label>
+                        <p>{{ form.name }}</p>
+                        <div class="invalid-feedback">
+                        {{ form.name.errors }}
+                        </div>
+
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <div class="form-group ">
+
+                      <label class="mb-2 text-dark" for="{{ form.logo.id_for_label }}">Логотип</label>
+                      <div class="row align-items-center">
+                        <div class="col-6" style="position: relative;">
+                          <div class="input-group-prepend file-upload" style="position: absolute; top: 0;right: -175px;">
+                              {{ form.logo }}
+                          </div>
+                            <div class="invalid-feedback">
+                            {{ form.logo.errors}}
+                            </div>
+                          <div class="custom-file" style="">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01">
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+
+                        <label class="mb-2 text-dark" for="{{ form.employee_count.id_for_label }}">Количество человек в компании</label>
+                        <p>{{ form.employee_count }}</p>
+                        <div class="invalid-feedback">
+                        {{ form.employee_count.errors}}
+                        </div>
+
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+
+                        <label class="mb-2 text-dark" for="{{ form.location.id_for_label }}">География</label>
+                        <p>{{ form.location }}</p>
+                        <div class="invalid-feedback">
+                        {{ form.location.errors}}
+                        </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group pb-2">
+                    <label class="mb-2 text-dark" for="{{ form.description.id_for_label }}">Информация о&nbsp;компании</label>
+                    <p>{{ form.description }}</p>
+                    <div class="invalid-feedback">
+                    {{ form.description.errors}}
+                    </div>
+                </div>
+
+                    {{ form.owner.as_hidden }}
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-info">Сохранить</button>
+                </div>
+              </form>
+
+
+            </section>
+            <!-- END Tab -->
+          </div>
+        </div>

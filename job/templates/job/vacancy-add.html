@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+
+{% block first_section %}
+
+
+<div class="row mt-5">
+
+{% include 'incl/_my_company_sidebar.html' %}
+
+<div class="col-12 col-lg-8">
+      <div class="col-12 col-lg-12">
+        <div class="card">
+          <div class="card-body px-4 pb-4 tab-content">
+            <!-- Tab -->
+            <section>
+              <form action="" method="post">
+
+               {% csrf_token %}
+
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+
+                      <label class="mb-2 text-dark" for="{{ form.title.id_for_label }}">Название вакансии</label>
+                      <p>{{ form.title }}</p>
+                        <div class="invalid-feedback">
+                        {{ form.title.errors}}
+                        </div>
+
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+
+                        <label class="mb-2 text-dark" for="{{ form.company.id_for_label }}">Название компании</label>
+                        <p>{{ form.company }}</p>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+
+                      <label class="mb-2 text-dark" for="{{ form.specialty.id_for_label }}">Специализация</label>
+                      <p>{{ form.specialty }}</p>
+
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+
+                        <label class="mb-2 text-dark" for="{{ form.level.id_for_label }}">Уровень</label>
+                        <p>{{ form.level }}</p>
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+
+                        <label class="mb-2 text-dark" for="{{ form.salary_min.id_for_label }}">Зарплата от</label>
+                        <p>{{ form.salary_min }}</p>
+                        <div class="invalid-feedback">
+                        {{ form.salary_min.errors}}
+                        </div>
+
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+
+                        <label class="mb-2 text-dark" for="{{ form.salary_min.id_for_label }}">Зарплата до</label>
+                        <p>{{ form.salary_max }}</p>
+                        <div class="invalid-feedback">
+                        {{ form.salary_max.errors}}
+                        </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group pb-2">
+
+                    <label class="mb-2 text-dark" for="{{ form.skills.id_for_label }}">Требуемые навыки</label>
+                    <p>{{ form.skills }}</p>
+                    <div class="invalid-feedback">
+                    {{ form.skills.errors}}
+                    </div>
+
+                </div>
+                <div class="form-group pb-2">
+
+                    <label class="mb-2 text-dark" for="{{ form.description.id_for_label }}">Описание вакансии</label>
+                    <p>{{ form.description }}</p>
+                    <div class="invalid-feedback">
+                    {{ form.description.errors}}
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info">Сохранить</button>
+                </div>
+              </form>
+
+            </section>
+            <!-- END Tab -->
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

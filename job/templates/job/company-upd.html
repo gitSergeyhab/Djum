@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ block.super }} | {{ request.user }} | Редактирование компании
+{% endblock %}
+
+{% block first_section %}
+    <div class="row mt-5">
+
+    {% include 'incl/_my_company_sidebar.html' %}
+
+    {% if request.user == company.owner   or  request.user.is_superuser %}
+
+        {% include 'incl/_form_company.html' %}
+
+    {% else %}
+        <div class="p-3 mb-2 bg-warning btn btn-block text-dark">Доступ ограничен</div>
+    {% endif %}
+    </div>
+{% endblock %}

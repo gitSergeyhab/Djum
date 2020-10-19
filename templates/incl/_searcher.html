@@ -1,0 +1,22 @@
+<section>
+  <div class="row">
+    <div class="col-12 col-md-8 col-lg-6 offset-lg-3 offset-md-2">
+      <form class="form-inline mb-3" action="{% url 'searcher' %}" method="get">
+        <div class="form-group col-8 col-md-10 pl-0">
+          <input class="form-control w-100" name="s" type="text" placeholder="Поиск по названию, описанию и скиллам" aria-label="Найти работу или стажировку">
+        </div>
+        <div class="form-group col-4 col-md-2 pl-0">
+          <button class="btn btn-primary w-100" type="submit">Найти</button>
+        </div>
+      </form>
+
+      <p>Например:
+        {% for skill in skillist %}
+            <a href="{% url 'searcher' %}?s={{ skill }}" class="text-dark border-bottom border-dark m-1 text-decoration-none">{{ skill }}</a>
+        {% endfor %}
+
+
+      </p>
+    </div>
+  </div>
+</section>

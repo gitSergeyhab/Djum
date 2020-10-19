@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block title %}
+
+{{ block.super }} | {{ request.user }}
+{% endblock %}
+
+
+
+{% block cards1 %}
+
+      <div class="row mt-5">
+        <div class="col-12 col-lg-11 offset-lg-2 m-auto">
+          <div class="card mb-4">
+            <div class="card-body px-4">
+              <div class="row">
+<!--                  чтобы не было ошибок для юзеров без компаний-->
+                {% if user.company %}
+                    <div class="col-12 col-md-10 col-lg-3 d-flex align-items-center">
+
+                      <a class="px-3" href="{% url 'company' user.company.pk %}">
+                          {% if user.company.logo %}
+                          <img src="{{ user.company.logo.url }}" width="130" height="80" alt="">
+                            {% else %}
+                          <h4>{{ user.company.name }}</h4>
+                          {% endif %}
+                          </a>
+                      {% comment %}<a class="px-3" href="{% url 'company' user.company.pk %}"><img src="../../static/logs/logo{{ user.company.pk }}.png" width="130" height="80" alt=""></a> {% endcomment %}
+
+                    </div>
+                {% endif %}
+
+                <div class="col-12">
+                <div>
+                    <div class="col-12">
+                    <h2 class="h2 p-2 text-center bg-success">Пользователь: {{ user.username|upper }} </h2>
+                    <h2 class="h2 pb-2 text-center">Имя: {{ user.first_name }}      <br>    фамилия: {{ user.last_name }}</h2>
+                    </div>
+                </div>
+<!--                  чтобы не было ошибок для юзеров без компаний-->
+                  {% if user.company %}
+                  <h4 class="h4 pb-2 bg-info">Компания: {{ user.company|upper }}</h4><br>
+                 <h5 class="h5 pb-2 ">{{ user.company.employee_count }} работника(ов) , город {{ user.company.location }}</h5>
+                  <p><b>О компании:</b>
+                        {% if user.company.description %}
+                        {{ user.company.description }}
+                        {% else %}
+                        {% lorem 113 w random %}...
+                        {% endif %}</p>
+                    {% endif %}
+
+    {% if user.resume %}
+    <section class="col-12 col-lg-6 offset-lg-3 mt-5 card">
+      <div class="card-body px-3 pb-4">
+        <h1 class="h4 pt-2 pb-3">Мое резюме</h1>
+          <div class="row">
+            <div class="col-12 col-md-6">Имя
+              <div class="form-group pb-2">
+                  {{ user.resume.first_name }}
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">Фамилия
+              <div class="form-group pb-2">
+                {{ user.resume.last_name }}
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-6">Готовность
+              <div class="form-group pb-2">
+                  {{ user.resume.readiness }}
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="form-group pb-2">Ожидаемое вознаграждение
+                  <p>{{ user.resume.salary }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-6">Специализация
+              <div class="form-group pb-2">
+                  {{ user.resume.specialty }}
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">Квалификация
+              <div class="form-group pb-2">
+                  {{ user.resume.level }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group pb-2">Образование
+            <p>{{ user.resume.education }}</p>
+          </div>
+
+          <div class="form-group pb-2">Опыт работы
+            <p>{{ user.resume.experience }}</p>
+          </div>
+
+          <div class="form-group pb-3">Ссылка на портфолио
+            <p>{{ user.resume.portfolio }}</p>
+          </div>
+
+      </div>
+    </section>
+    {% endif %}
+
+                 <div class="btn-toolbar justify-content-between">
+                     {% if user.resume %}
+                  <a class=" btn-group" href="{% url 'updresume' user.pk %}"><input type="button" class="btn btn-primary btn-sm"  value='редактировать резюме'></a>
+                     {% else %}
+                 <a class=" btn-group" href="{% url 'myresume' %}"><input type="button" class="btn btn-primary btn-sm"  value='создать резюме'></a>
+                     {% endif %}
+<!--                  если у юзера есть компания - ссылка на редактировние
+если нет - ссылка на добавление-->
+                     {% if request.user.company %}
+                  <a class="btn-group" href="{% url 'update_comp' user.company.pk %}"><input type="button" class="btn btn-primary btn-sm"  value='редактировать профиль компании'></a>
+                     {% else %} <br><br>
+                  <a class="btn-group" href="{% url 'addmycompany' %}"><input type="button" class="btn btn-primary btn-sm"  value='Добавить компанию'></a>
+                  {% endif %}
+
+
+
+                 </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
+
+
+
+

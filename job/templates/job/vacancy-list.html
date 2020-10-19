@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block first_section %}
+<div class="row mt-5">
+  {% include 'incl/_my_company_sidebar.html' %}
+
+  <div class="col-12 col-lg-8">
+    <div class="card">
+      <div class="card-body px-4 pb-4">
+        <section class="tab-pane fade show active">
+          <h2 class="h4 pt-2 pb-3">Вакансии</h2>
+
+            <a href="{% url 'add_vac' %}" class="text-info ">
+              <div class="card mt-3">
+                <div class="card-body text-center px-4 btn btn-outline-info">
+                        <b>Добавить вакансию</b>
+                </div>
+              </div>
+            </a>
+
+          {% for vacancy in vacancies %}
+          <div class="card mt-3">
+            <div class="card-body px-4">
+              <div class="row align-items-center">
+                <div class="col-6 col-lg-8">
+                  <a href="{{ vacancy.get_absolute_url }} " class="mb-1">{{ vacancy.title }}</a>
+                  <p class="mb-1">
+                    <span class="mr-4">{{ vacancy.salary_min }} - {{ vacancy.salary_max }}</span><a href="{% url 'update_vac' vacancy.pk %}#aps" class="text-info">
+                    {{ vacancy.applications.all|length }} отклика(ов)</a>
+                  </p>
+                </div>
+                <div class="col-6 col-lg-4 text-right">
+                  <a href="{% url 'update_vac' vacancy.pk %}" class="btn btn-outline-info">Изменить</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

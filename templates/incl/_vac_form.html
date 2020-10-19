@@ -1,0 +1,40 @@
+ {% comment %}
+    {% load crispy_forms_tags %}
+    {% crispy form "bootstrap4" %}
+
+ {% endcomment %}
+
+ <form action="{{ application.get_absolute_url }}" method="post" class="card mt-4 mb-3">
+  <div class="card-body mx-3">
+      <p class="h5 mt-3 font-weight-normal">Отозваться на вакансию</p>
+
+
+ {% csrf_token %}
+    {{ form.non_field.errors }}
+    <div class="form-group">
+      <label class="mb-1 mt-2" for="{{ form.written_username.id_for_label }}">Вас зовут</label>
+        <p>{{ form.written_username }}</p>
+        {{ form.written_username.errors }}
+    </div>
+    <div class="form-group">
+      <label class="mb-1 mt-2" for="{{ form.written_phone.id_for_label }}">Ваш телефон</label>
+        <p>{{ form.written_phone }}</p>
+        {{ form.written_phone.errors }}
+    </div>
+    <div class="form-group">
+      <label class="mb-1 mt-2" for="{{ form.written_cover_letter.id_for_label }}">Сопроводительное письмо</label>
+        <p>{{ form.written_cover_letter }}</p>
+        {{ form.written_cover_letter.errors }}
+    </div>
+
+    {{ form.vacancy.as_hidden }}
+      {{ form.user.as_hidden }}
+
+              <div class="form-group">
+                  <button type="submit" class="btn btn-info">Записаться на пробный урок</button>
+            </div>
+
+    </div>
+
+
+</form>

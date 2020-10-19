@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Компания | {{ block.super }}
+{% endblock %}
+
+{% block first_section %}
+  <h1 class="h1 text-center mx-auto mt-4 py-5"><strong>Вакансии для <br>Junior-разработчиков</strong></h1>
+
+
+  {% include 'incl/_searcher.html' %}
+
+
+{% endblock %}
+
+
+{% block cards1 %}
+    <section class="mt-5 pt-3">
+      <h2 class="h2 font-weight-normal text-center mb-5">Вакансии по рубрикам</h2>
+      <div class="row mb-0">
+
+          {% include 'incl/_small_specialty_card.html' %}
+
+      </div>
+    </section>
+{% endblock %}
+
+
+{% block cards2 %}
+    <section class="my-5 pt-3">
+      <h2 class="h2 font-weight-normal text-center mb-5">Нам доверяют лучшие компании</h2>
+      <div class="row mb-0">
+
+          {% include 'incl/_small_company_card.html' %}
+
+      </div>
+    </section>
+{% endblock %}

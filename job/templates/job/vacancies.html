@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ block.super }} | {% include 'incl/_title_if.html' %}
+{% endblock %}
+
+{% block first_section %}
+{% include 'incl/_first_section_if.html' %}
+{% endblock %}
+
+{% block cards1 %}
+<section>
+  <p class="text-center pt-1"> {{ number_vacancies }} вакансий </p>
+  <div class="row mt-5">
+    <div class="col-12 col-lg-8 offset-lg-2 m-auto">
+        {% include 'incl/_vacancy_card.html' %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block paginator %}
+{% include 'incl/_block_paginator.html' %}
+{% endblock %}
