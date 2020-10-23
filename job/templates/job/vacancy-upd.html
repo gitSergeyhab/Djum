@@ -6,7 +6,7 @@
 
 <div class="row mt-5">
 
-{% include 'incl/_my_company_sidebar.html' %}
+{% include 'incl/my_company_sidebar.html' %}
 
 <div class="col-12 col-lg-8">
       <div class="col-12 col-lg-12">
@@ -15,7 +15,7 @@
             <!-- Tab -->
             <section>
                 {% comment %}{% endcomment %}<h2 class="mt-3 mb-4">{{ the_vacancy.specialty }}/{{ the_vacancy.level }}</h2>
-              <form action="" method="post">
+              <form action="" method="POST" enctype="multipart/form-data">
 
                {% csrf_token %}
 
@@ -95,7 +95,7 @@
                     <button type="submit" class="btn btn-info">Сохранить</button>
                 </div>
               </form>
-            {% include  'incl/_applications.html'%}
+            {% include  'incl/applications.html'%}
             </section>
             <!-- END Tab -->
           </div>

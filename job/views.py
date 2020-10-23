@@ -146,17 +146,34 @@ class AddCompanyView(View):
         return render(request, 'job/company-edit.html', context={'form': form, })
 
     def post(self, request):
-        form = CompanyForm(request.POST)
+        form = CompanyForm(request.POST, request.FILES)
         if form.is_valid():
             new_company = form.save()
             return redirect(new_company)
         return render(request, 'job/company-edit.html', context={'form': form, })
 
 
+
+# class UpdateCompanyView(View):
+#     """ редактирование компании  - тоже работает, сохранил для себя"""
+#
+#     def get(self, request, pk):
+#         comp = Company.objects.get(pk=pk)
+#         form = CompanyForm(instance=comp)
+#         return render(request, 'job/company-upd.html', context={'form': form, 'company': comp})
+#
+#     def post(self, request, pk):
+#         comp = Company.objects.get(pk=pk)
+#         form = CompanyForm(request.POST, request.FILES, instance=comp)
+#         if form.is_valid():
+#             new_company = form.save()
+#             return redirect(new_company)
+#         return render(request, 'job/company-upd.html', context={'form': form, })
+
+
 class UpdateCompanyView(UpdateView):
     """   редактирование компании    """
     model = Company
-    # context_object_name = 'company'
     form_class = CompanyForm
     template_name = 'job/company-upd.html'
 
@@ -174,7 +191,6 @@ class MyVacanciesView(ListView):
 class UserProfileView(DetailView):
     """ окно при нажатии на "компания" в выпадающем меню зарег пользователя,
     у которого нет компании (ссылка на допввление компании) """
-    # model = User
     template_name = 'job/user_prof.html'
 
     def get_queryset(self):
@@ -215,9 +231,6 @@ class UpdateVacancyView(UpdateView):
     model = Vacancy
     form_class = VacancyForm
     template_name = 'job/vacancy-upd.html'
-
-    # def get_queryset(self):
-    #     return Vacancy.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

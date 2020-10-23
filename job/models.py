@@ -10,7 +10,7 @@ from .utils import skill_maker, user_maker
 class Company(models.Model):
     name = models.CharField(max_length=32, verbose_name="Компания", unique=True)
     location = models.CharField(max_length=32, verbose_name="Город", blank=True, null=True)
-    logo = models.ImageField(verbose_name="Логотип", upload_to="MEDIA_COMPANY_IMAGE_DIR", blank=True, null=True)
+    logo = models.ImageField(verbose_name="Логотип", upload_to="MEDIA_COMPANY_IMAGE_DIR")
     description = models.TextField(verbose_name="Информация о компании", blank=True, null=True)
     employee_count = models.IntegerField(verbose_name="Количество сотрудников", null=True, blank=True)
     owner = models.OneToOneField(User, related_name="company", on_delete=models.CASCADE)
