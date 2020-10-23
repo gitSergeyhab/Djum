@@ -1,19 +1,19 @@
-{% for com in company %}
+{% for company in company %}
   <div class="col-6 col-md-6 col-lg-3">
     <div class="card pt-4 text-center mb-4">
 
 
-      <a href="{{ com.get_absolute_url }}" style="max-width: 150px;" class="mx-auto d-block">
-      {% if com.logo %}
-      <img class="mx-auto d-block mw-100" src="{{ com.logo.url }}" width="130" height="80" alt="">
+      <a href="{{ company.get_absolute_url }}" style="max-width: 150px;" class="mx-auto d-block">
+      {% if company.logo %}
+      <img class="mx-auto d-block mw-100" src="{{ company.logo.url }}" width="130" height="80" alt="">
       {% else %}
-      <h5>{{ com.name }}</h5>
+      <h5>{{ company.name }}</h5>
       {% endif %}
       </a>
 
       <div class="card-body">
 
-        <p class="card-text"><a href="{{ com.get_absolute_url }}">{{ com.vacancies.all.count }} вакансий</a></p>
+        <p class="card-text"><a href="{{ company.get_absolute_url }}">{{ company.count_vac }} вакансий</a></p>
 
       </div>
     </div>

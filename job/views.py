@@ -1,6 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.shortcuts import redirect, render
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
@@ -9,19 +9,16 @@ from .models import Specialty, Company, Vacancy, UserResume
 from .forms import ApplicationForm, UserRegForm, UserAutForm, CompanyForm, VacancyForm, ResumeForm
 
 
-# 223ms overall/21ms on queries/23 queries
-# 156ms overall/ 14ms on queries/ 8 queries
 class MainView(ListView):
-    # model = Specialty
     template_name = 'job/index.html'
     context_object_name = 'main_specialty'
 
     def get_queryset(self):
-        return Specialty.objects.all().prefetch_related('vacancies')
+        return Specialty.objects.annotate(count_vac=Count('vacancies'))
 
     def get_context_data(self):
         context = super().get_context_data()
-        context['company'] = Company.objects.prefetch_related('vacancies').all()
+        context['company'] = Company.objects.annotate(count_vac=Count('vacancies'))
         return context
 
 
@@ -31,41 +28,31 @@ class ListVacSpecialtiesView(ListView):
     paginate_by = 8
 
     def get_queryset(self):
-        # 206ms overall/ 25ms on queries/ 24 queries:
-        # return Vacancy.objects.filter(specialty__slug=self.kwargs['slug'])
-        # 99ms overall/ 11ms on queries /8 queries:
         return Vacancy.objects.filter(specialty__slug=self.kwargs['slug']).select_related('company', 'specialty')
 
     def get_context_data(self):
         context = super().get_context_data()
-        context['flag_specialty'] = Specialty.objects.get(slug=self.kwargs['slug'])
-        context['number_vacancies'] = Vacancy.objects.filter(specialty__slug=self.kwargs['slug']).count()
+        context['flag_specialty'] = Specialty.objects.values('title').get(slug=self.kwargs['slug'])
         return context
 
 
 # – Все вакансии списком
-
 class ListVacanciesView(ListView):
     context_object_name = 'vacancies'
     template_name = 'job/vacancies.html'
-    extra_context = {'number_vacancies': Vacancy.objects.count()}
     paginate_by = 8
 
-    # 253ms overall/ 28ms on queries/ 22 queries:
-    # model = Vacancy
-    # 103ms overall /9ms on queries/ 6 queries:
     def get_queryset(self):
         return Vacancy.objects.select_related('company', 'specialty')
 
 
 # – Одна вакансия
 class OneVacancyView(DetailView):
-    # model = Vacancy 7 queries
     context_object_name = 'vacancy'
     template_name = 'job/vacancy.html'
 
     def get_queryset(self):
-        return Vacancy.objects.select_related('company', 'specialty')  # 7 queries
+        return Vacancy.objects.select_related('company', 'specialty')
 
 
 class CardCompanyView(ListView):
@@ -74,13 +61,11 @@ class CardCompanyView(ListView):
     paginate_by = 8
 
     def get_queryset(self):
-        # return Vacancy.objects.filter(company__pk=self.kwargs['pk']) 18 queries
-        return Vacancy.objects.filter(company__pk=self.kwargs['pk']).select_related('company', 'specialty')  # 8 queries
+        return Vacancy.objects.filter(company__pk=self.kwargs['pk']).select_related('company', 'specialty')
 
     def get_context_data(self):
         context = super().get_context_data()
         context['flag_company'] = Company.objects.get(pk=self.kwargs['pk'])
-        context['number_vacancies'] = Vacancy.objects.filter(company__pk=self.kwargs['pk']).count()
         return context
 
 
@@ -88,7 +73,6 @@ class CompaniesView(ListView):
     model = Company
     template_name = 'job/companies.html'
     context_object_name = 'companies'
-    extra_context = {'number_companies': Company.objects.count()}
     paginate_by = 8
 
 
@@ -153,24 +137,6 @@ class AddCompanyView(View):
         return render(request, 'job/company-edit.html', context={'form': form, })
 
 
-
-# class UpdateCompanyView(View):
-#     """ редактирование компании  - тоже работает, сохранил для себя"""
-#
-#     def get(self, request, pk):
-#         comp = Company.objects.get(pk=pk)
-#         form = CompanyForm(instance=comp)
-#         return render(request, 'job/company-upd.html', context={'form': form, 'company': comp})
-#
-#     def post(self, request, pk):
-#         comp = Company.objects.get(pk=pk)
-#         form = CompanyForm(request.POST, request.FILES, instance=comp)
-#         if form.is_valid():
-#             new_company = form.save()
-#             return redirect(new_company)
-#         return render(request, 'job/company-upd.html', context={'form': form, })
-
-
 class UpdateCompanyView(UpdateView):
     """   редактирование компании    """
     model = Company
@@ -199,9 +165,8 @@ class UserProfileView(DetailView):
 
 class DemoCompView(View):
     """ окно при нажатии на "компания" в выпадающем меню зарег пользователя,
-    у которого нет компании (ссылка на допввление компании) """
-
-    def get(self, request, *args, **kwargs):
+    у которого нет компании (ссылка на допавление компании) """
+    def get(self, request):
         return render(request, 'job/my_demo_company.html')
 
 
@@ -210,12 +175,9 @@ class AddVacancyView(View):
 
     def get(self, request):
         form = VacancyForm()
-        # оставляет селект с 1-пунктом (без initial по умолчанию выбирается: ---------):
-        form.fields['company'].queryset = Company.objects.prefetch_related('vacancies').filter(
-            owner__pk=request.user.pk)
-        # делает этот пункт выбранным (без queryset остается возможность выбора из всего списка)
+        form.fields['company'].queryset = Company.objects.prefetch_related('vacancies').\
+            filter(owner__pk=request.user.pk)
         form.fields['company'].initial = Company.objects.get(owner__pk=request.user.pk)
-        # form = UpdVacForm(initial={'company': Company.objects.get(owner__pk=request.user.pk)})
         return render(request, 'job/vacancy-add.html', context={'form': form, })
 
     def post(self, request):
@@ -304,4 +266,3 @@ class SentView(DetailView):
 class About(View):
     def get(self, request):
         return render(request, 'job/about.html')
-

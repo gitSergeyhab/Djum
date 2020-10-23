@@ -22,7 +22,7 @@
             {% if request.user.company %}
             <a href="{% url 'update_comp' request.user.company.pk %}" class="dropdown-item nav-link font-weight-bold"><span>Компания</span></a>
             {% else %}
-            <a href="{% url 'addmycompany' %}" class="dropdown-item nav-link font-weight-bold"><span>Компания</span></a>
+            <a href="{% url 'demo_comp' %}" class="dropdown-item nav-link font-weight-bold"><span>Компания</span></a>
             {% endif %}
 
           <a href="{% url 'logout' %}" class="dropdown-item nav-link font-weight-bold"><span>Выход</span></a>

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block cards1 %}
-<h2 class="text-center py-5">Всего {{ number_companies }} компаний</h2>
+<h2 class="text-center py-5">Всего {{ page_obj.paginator.count }} компаний </h2>
   <section>
       <div class="row mt-5">
         <div class="col-12 col-lg-8 offset-lg-2 m-auto">

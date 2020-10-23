@@ -1,13 +1,14 @@
 {% if flag_specialty %}
-  <h1 class="h1 text-center mx-auto mt-4 pt-5" style="font-size: 70px;"><strong>{{ flag_specialty }}</strong></h1>
+  <h1 class="h1 text-center mx-auto mt-4 pt-5" style="font-size: 70px;"><strong>{{ flag_specialty.title }}</strong></h1>
 {% elif flag_company %}
   <div class="my-3">
 
     {% if flag_company.logo %}
+
       <img class="rounded mx-auto d-block" src="{{ flag_company.logo.url }}" width="260" height="160" alt="flag_company">
-    <h5 class="text-center mx-auto mt-0 py-0"><strong>{{ flag_company|lower }}</strong></h5>
+    <h5 class="text-center mx-auto mt-0 py-0"><strong>{{ flag_company.name|lower }}</strong></h5>
     {% else %}
-      <h2 class="text-center mx-auto mt-5 py-0"><strong>{{ flag_company|upper }}</strong></h2>
+      <h2 class="text-center mx-auto mt-5 py-0"><strong>{{ flag_company.name|upper }}</strong></h2>
     {% endif %}
 
 

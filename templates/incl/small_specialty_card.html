@@ -12,7 +12,7 @@
       </a>
       <div class="card-body">
         <p class="card-text mb-2">{{ specialty.title }}</p>
-        <p class="card-text"><a href="{{ specialty.get_absolute_url }}">{{ specialty.vacancies.all.count }} вакансий</a></p>
+        <p class="card-text"><a href="{{ specialty.get_absolute_url }}">{{ specialty.count_vac }} вакансий</a></p>
       </div>
     </div>
   </div>
