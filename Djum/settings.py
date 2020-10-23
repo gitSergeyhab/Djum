@@ -131,7 +131,7 @@ STATICFILES_DIRS = [
 ]
 
 # нужно для работы debug-toolbar:
-INTERNAL_IPS = ['127.0.0.1',]
+INTERNAL_IPS = ['127.0.0.1', ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

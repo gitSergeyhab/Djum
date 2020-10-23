@@ -10,4 +10,3 @@ def skill_maker(x):
 
 def user_maker(x):
     return f'username{x}', f'email{x}@mail.fake', f'{x}word'
-
