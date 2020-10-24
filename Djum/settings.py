@@ -123,7 +123,8 @@ LOGOUT_REDIRECT_URL = '/login'
 
 STATIC_URL = '/static/'
 # нужно для работы на true сервере:
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = 'static'
 
 # нужно для работы на отладочном сервере:
 STATICFILES_DIRS = [
