@@ -128,7 +128,7 @@ STATIC_ROOT = 'static'
 
 # нужно для работы на отладочном сервере:
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'Djum/static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 # нужно для работы debug-toolbar:
