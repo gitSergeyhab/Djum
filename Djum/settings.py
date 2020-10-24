@@ -127,9 +127,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATIC_ROOT = 'static'
 
 # нужно для работы на отладочном сервере:
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
 # нужно для работы debug-toolbar:
 INTERNAL_IPS = ['127.0.0.1', ]
