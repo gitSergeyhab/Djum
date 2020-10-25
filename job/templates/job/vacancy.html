@@ -14,7 +14,7 @@
 
           {% if flag_application %}
             {% include 'incl/vac_form.html' %}
-          {% else %}
+          {% elif user.is_authenticated %}
             <div class="text-center mt-3 mb-5">
               <a class="btn btn-primary" href="{% url 'application' vacancy.pk %}"> Откликнуться на вакансию </a>
             </div>
